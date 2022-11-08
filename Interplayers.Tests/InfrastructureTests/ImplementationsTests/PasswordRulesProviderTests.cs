@@ -28,7 +28,7 @@ namespace Interplayers.Tests.InfrastructureTests.ImplementationsTests
 
             var rules = provider.GetRules().ToList();
 
-            Assert.Equal(1, rules.Count);
+            Assert.Single(rules);
             Assert.IsType<PasswordCharacterCountRule>(rules[0]);
         }
 
@@ -40,7 +40,7 @@ namespace Interplayers.Tests.InfrastructureTests.ImplementationsTests
 
             var rules = provider.GetRules().ToList();
 
-            Assert.Equal(1, rules.Count);
+            Assert.Single(rules);
             Assert.IsType<PasswordNumberCountRule>(rules[0]);
         }
 
@@ -52,7 +52,7 @@ namespace Interplayers.Tests.InfrastructureTests.ImplementationsTests
 
             var rules = provider.GetRules().ToList();
 
-            Assert.Equal(1, rules.Count);
+            Assert.Single(rules);
             Assert.IsType<PasswordLowerLetterCountRule>(rules[0]);
         }
 
@@ -64,7 +64,7 @@ namespace Interplayers.Tests.InfrastructureTests.ImplementationsTests
 
             var rules = provider.GetRules().ToList();
 
-            Assert.Equal(1, rules.Count);
+            Assert.Single(rules);
             Assert.IsType<PasswordUpperLetterCountRule>(rules[0]);
         }
 
@@ -76,7 +76,7 @@ namespace Interplayers.Tests.InfrastructureTests.ImplementationsTests
 
             var rules = provider.GetRules().ToList();
 
-            Assert.Equal(1, rules.Count);
+            Assert.Single(rules);
             Assert.IsType<PasswordRepeatedCharacterCountRule>(rules[0]);
         }
 
@@ -109,7 +109,7 @@ namespace Interplayers.Tests.InfrastructureTests.ImplementationsTests
 
             var rules = provider.GetRules().ToList();
 
-            Assert.Equal(1, rules.Count);
+            Assert.Single(rules);
             Assert.IsType<PasswordSpecialCharacterCountRule>(rules[0]);
         }
     }
