@@ -14,10 +14,9 @@ namespace Interplayers.WebAPI.Endpoints.ValidatePassword
             var result = handler.Handle(useCaseData);
 
             if (result.IsValid())
-                return Results.StatusCode(200);
-
-            var response = ValidatePasswordResponseBody.Create401(languageDecider, result);
-            return Results.Json(data: response, statusCode: 401);
+                return ValidatePasswordResponseBody.Create200Result();
+            else
+                return ValidatePasswordResponseBody.Create400Result(languageDecider, result);
         }
     }
 }

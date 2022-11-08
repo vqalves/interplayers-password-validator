@@ -29,7 +29,7 @@ Payload:
 
 ### Validate Password Response
 #### StatusCode 200
-#### StatusCode 401
+#### StatusCode 400
 ```
 Body:
 {

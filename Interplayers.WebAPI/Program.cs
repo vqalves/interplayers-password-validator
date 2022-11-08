@@ -46,7 +46,7 @@ app.MapPost
         [FromBody]ValidatePasswordRequestData parameter
     ) => ValidatePasswordEndpoint.Handle(languageDecider, handler, parameter)
 )
-.Produces(StatusCodes.Status200OK)
-.Produces<ValidatePasswordResponseBody.ValidatePasswordResponseBody_Result401>(StatusCodes.Status401Unauthorized);;
+.Produces<ValidatePasswordResponseBody.ValidatePasswordResponseBody_Result200>(StatusCodes.Status200OK)
+.Produces<ValidatePasswordResponseBody.ValidatePasswordResponseBody_Result400>(StatusCodes.Status400BadRequest);
 
 app.Run("http://localhost:5000");
