@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Interplayers.Application\Interplayers.Application.csproj" />
+    <ProjectReference Include="..\Interplayers.Domain\Interplayers.Domain.csproj" />
+    <ProjectReference Include="..\Interplayers.Infrastructure\Interplayers.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
