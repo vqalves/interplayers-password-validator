@@ -1,9 +1,7 @@
-﻿using Interplayers.Domain.Messages.Validation;
+﻿using Interplayers.Domain.Messages.PasswordValidation;
 using Interplayers.Domain.PasswordRules;
 using Interplayers.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Interplayers.Application.UseCases.ValidatePassword
 {
@@ -20,7 +18,7 @@ namespace Interplayers.Application.UseCases.ValidatePassword
         {
             var password = new Password(data.Password);
 
-            var validationMessages = new List<ValidationMessage>();
+            var validationMessages = new List<IPasswordValidationTranslatableMessage>();
 
             foreach(var rule in PasswordRulesProvider.GetRules())
                 if(!rule.TryValidate(password, out var message))

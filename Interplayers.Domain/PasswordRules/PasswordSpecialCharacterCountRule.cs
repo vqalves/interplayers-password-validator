@@ -1,9 +1,8 @@
-﻿using Interplayers.Domain.Messages.Validation;
+﻿using Interplayers.Domain.Messages.PasswordValidation;
 using Interplayers.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Interplayers.Domain.PasswordRules
 {
@@ -24,7 +23,7 @@ namespace Interplayers.Domain.PasswordRules
                 throw new ArgumentException("Cannot require special characters while providing an empty character list");
         }
 
-        public bool TryValidate(Password password, out ValidationMessage? invalidMessage)
+        public bool TryValidate(Password password, out IPasswordValidationTranslatableMessage? invalidMessage)
         {
             if (MinimumAmountOfSpecialCharacters > 0)
             {
@@ -32,7 +31,7 @@ namespace Interplayers.Domain.PasswordRules
 
                 if (specialCharacterCount < MinimumAmountOfSpecialCharacters)
                 {
-                    invalidMessage = ValidationMessages.PasswordSpecialCharacterCountInvalid;
+                    invalidMessage = new PasswordSpecialCharacterCountInvalidMessage(MinimumAmountOfSpecialCharacters, specialCharacterCount, SpecialCharacters);
                     return false;
                 }
             }

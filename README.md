@@ -27,8 +27,6 @@ Payload:
 
 A validação da senha é feita executando um conjunto de regras de validação. Cada regra é uma classe que implementa `IPasswordRule`, e pode executar seu próprio algoritmo, permitindo que novas regras possam ser adicionadas sem afetar o fluxo do caso de uso.
 
-Além de checar a validade da senha, cada regra também aponta qual a instância de `ValidationMessage` correspondente com inconsistência detectada no algoritmo, permitindo que o caller possa formatar a mensagem da forma que considerar mais conveniente.
-
 As regras disponíveis estão encapsuladas dentro de `IPasswordRulesProvider`, permitindo que diferentes callers utilizem diferentes regras, sem afetar o caso de uso.
 
 ```mermaid
@@ -44,9 +42,23 @@ Para encapsulamento, foi criado o value object `Password`, que contém métodos 
 
 Para a API, o `IPasswordRulesProvider` é implementado dentro de `Infrastructure`. A instanciação é realizada pelo `WebAPI`, que lê a configuração dentro de seu `appsettings.json`. Isso permite que as regras possam ser alteradas na API sem nenhuma alteração no código fonte.
 
-Para a internacionalização (i18n), a `WebAPI` utiliza uma classe abstrata de `Language`, aonde cada linguagem pode implementar sua própria classe e ser registrada no `LanguageProvider`. O uso da classe abstrata obrigará as classes base a sobreescrever determinados os métodos, evitando erros de falta de tradução ao longo do sistema. O idioma é selecionado pelo `HttpLanguageDecider`, que analisa o header `Accept-Language` fornecido no HTTP. 
+Além de checar a validade da senha, cada `IPasswordRule` também pode retornar uma instância de `IPasswordValidationTranslatableMessage` com o tipo de inconsistência detectada e os dados relevantes na inconsistência, que pode ser formatado em uma mensagem através de uma implementação de `IPasswordValidationMessageLocale`.
+
+Para a internacionalização (i18n), a `WebAPI` utiliza uma classe abstrata de `Language`, aonde cada linguagem pode implementar sua própria classe e ser registrada no `LanguageProvider`. O uso da classe abstrata obrigará as classes herdadas a sobreescreverem determinados os métodos, evitando erros de falta de tradução pelo sistema. O idioma é selecionado pelo `HttpLanguageDecider`, que analisa o header `Accept-Language` fornecido no HTTP.
+
+Cada `Language` deve retornar uma implementação de `IPasswordValidationMessageLocale`, que exige que cada tipo de `IPasswordValidationTranslatableMessage` tenha uma mensagem de texto correspondente.
 
 Esta estrutura permite uma i18n totalmente desacoplada do domínio, e torna fácil adicionar novos idiomas com efeito imediato nos usuários, já que é utilizada a parametrização inata do HTTP.
+
+```mermaid
+graph TD;
+    HttpLanguageDecider-->|consumes|LanguageProvider;
+    LanguageProvider-->|returns|Language
+    Language-.->|implements|LanguageEnglish
+    Language-.->|implements|LanguagePortuguese
+    LanguageEnglish--->|contains|PasswordValidationMessageLocaleEnglish
+    LanguagePortuguese--->|contains|PasswordValidationMessageLocalePortuguese
+```
 
 ## Camadas
 Camada | Descrição

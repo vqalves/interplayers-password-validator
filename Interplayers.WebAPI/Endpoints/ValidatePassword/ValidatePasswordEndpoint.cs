@@ -1,6 +1,5 @@
 ﻿using Interplayers.Application.UseCases.ValidatePassword;
-using Interplayers.WebAPI.Locale;
-using Interplayers.WebAPI.Locale.ValidatePassword;
+using Interplayers.Infrastructure.Implementations.Locale;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Interplayers.WebAPI.Endpoints.ValidatePassword
@@ -17,17 +16,17 @@ namespace Interplayers.WebAPI.Endpoints.ValidatePassword
             if (result.IsValid())
                 return Results.StatusCode(200);
 
-            var translator = languageDecider.GetLanguage().GetValidationMessageLocale();
+            var locale = languageDecider.GetLanguage().GetPasswordValidationMessageLocale();
             
             var response = new []
+            {
+                new 
                 {
-                    new 
-                    { 
-                        attribute = nameof(parameter.Password), 
-                        value = result.ErrorMessages.Select(x => translator.GetDescription(x))
-                    }
+                    attribute = nameof(parameter.Password), 
+                    value = result.ErrorMessages.Select(x => x.GetDescription(locale))
                 }
-                .ToDictionary(x => x.attribute, x => x.value);
+            }
+            .ToDictionary(x => x.attribute, x => x.value);
             
             return Results.Json(data: response, statusCode: 401);
         }

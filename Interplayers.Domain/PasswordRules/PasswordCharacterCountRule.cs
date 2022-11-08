@@ -1,8 +1,6 @@
-﻿using Interplayers.Domain.Messages.Validation;
+﻿using Interplayers.Domain.Messages.PasswordValidation;
 using Interplayers.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Interplayers.Domain.PasswordRules
 {
@@ -18,11 +16,13 @@ namespace Interplayers.Domain.PasswordRules
                 throw new ArgumentException("Minimum amount of characters cannot be less than zero");
         }
 
-        public bool TryValidate(Password password, out ValidationMessage? invalidMessage)
+        public bool TryValidate(Password password, out IPasswordValidationTranslatableMessage? invalidMessage)
         {
-            if(password.AmountOfCharacters() < MinimumCharacterCount)
+            int amountOfCharacters = password.AmountOfCharacters();
+
+            if(amountOfCharacters < MinimumCharacterCount)
             {
-                invalidMessage = ValidationMessages.PasswordCharacterCountInvalid;
+                invalidMessage = new PasswordCharacterCountInvalidMessage(MinimumCharacterCount, amountOfCharacters);
                 return false;
             }
 

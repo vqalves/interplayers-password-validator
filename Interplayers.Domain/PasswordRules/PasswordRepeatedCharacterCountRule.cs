@@ -1,9 +1,6 @@
-﻿using Interplayers.Domain.Messages.Validation;
+﻿using Interplayers.Domain.Messages.PasswordValidation;
 using Interplayers.Domain.ValueObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Interplayers.Domain.PasswordRules
 {
@@ -19,13 +16,13 @@ namespace Interplayers.Domain.PasswordRules
                 throw new ArgumentException("Maximum amount of character repetition cannot be less than one");
         }
 
-        public bool TryValidate(Password password, out ValidationMessage? invalidMessage)
+        public bool TryValidate(Password password, out IPasswordValidationTranslatableMessage? invalidMessage)
         {
             var biggestRepetition = password.BiggestCharacterRepetition();
 
             if (biggestRepetition > MaximumAmountOfRepetition)
             {
-                invalidMessage = ValidationMessages.PasswordRepeatedCharacterCountInvalid;
+                invalidMessage = new PasswordRepeatedCharacterCountInvalidMessage(MaximumAmountOfRepetition, biggestRepetition);
                 return false;
             }
 

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Interplayers.WebAPI.Locale
+namespace Interplayers.Infrastructure.Implementations.Locale
 {
     public interface ILanguageDecider
     {
-        Language GetLanguage();
+        ILanguage GetLanguage();
     }
 }
