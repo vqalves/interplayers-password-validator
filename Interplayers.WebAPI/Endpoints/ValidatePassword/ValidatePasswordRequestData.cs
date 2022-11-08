@@ -3,7 +3,7 @@ using Interplayers.Domain.ValueObjects;
 
 namespace Interplayers.WebAPI.Endpoints.ValidatePassword
 {
-    public class ValidatePasswordParameters
+    public class ValidatePasswordRequestData
     {
         public string? Password { get; set; }
 

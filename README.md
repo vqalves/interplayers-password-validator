@@ -8,6 +8,12 @@ cd interplayers-password-validator
 dotnet run --project Interplayers.WebAPI
 ```
 
+### Documentação Swagger (apenas ambiente desenvolvimento)
+```
+GET http://localhost:5000/swagger
+```
+
+### Validate Password Request
 ```
 POST http://localhost:5000/validate-password
 
@@ -17,9 +23,20 @@ Accept-Language pt,en
 
 Payload:
 {
-	"Password": "string"
+	"Password": string
 }
 ```
+
+### Validate Password Response
+#### StatusCode 200
+#### StatusCode 401
+```
+Body:
+{
+    "Password": ["validation messages"]
+}
+```
+
 
 ## Caso de uso
 
@@ -54,8 +71,8 @@ Esta estrutura permite uma i18n totalmente desacoplada do domínio, e torna fác
 graph TD;
     HttpLanguageDecider-->|consumes|LanguageProvider;
     LanguageProvider-->|returns|Language
-    Language-.->|implements|LanguageEnglish
-    Language-.->|implements|LanguagePortuguese
+    Language-.->|implemented by|LanguageEnglish
+    Language-.->|implemented by|LanguagePortuguese
     LanguageEnglish--->|contains|PasswordValidationMessageLocaleEnglish
     LanguagePortuguese--->|contains|PasswordValidationMessageLocalePortuguese
 ```

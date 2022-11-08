@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 // ASP.NET classes
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
 
@@ -27,14 +30,23 @@ builder.Services.AddSingleton<ValidatePasswordHandler>();
 
 // Endpoint bindings
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 app.MapPost
 (
     "/validate-password", 
     (
         [FromServices]ILanguageDecider languageDecider, 
         [FromServices]ValidatePasswordHandler handler, 
-        [FromBody]ValidatePasswordParameters parameter
+        [FromBody]ValidatePasswordRequestData parameter
     ) => ValidatePasswordEndpoint.Handle(languageDecider, handler, parameter)
-);
+)
+.Produces(StatusCodes.Status200OK)
+.Produces<ValidatePasswordResponseBody.ValidatePasswordResponseBody_Result401>(StatusCodes.Status401Unauthorized);;
 
 app.Run("http://localhost:5000");

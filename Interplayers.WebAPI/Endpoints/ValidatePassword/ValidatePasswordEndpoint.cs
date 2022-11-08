@@ -8,7 +8,7 @@ namespace Interplayers.WebAPI.Endpoints.ValidatePassword
     {
         private ValidatePasswordEndpoint() { }
 
-        public static IResult Handle([FromServices]ILanguageDecider languageDecider, [FromServices]ValidatePasswordHandler handler, [FromBody]ValidatePasswordParameters parameter)
+        public static IResult Handle([FromServices]ILanguageDecider languageDecider, [FromServices]ValidatePasswordHandler handler, [FromBody]ValidatePasswordRequestData parameter)
         {
             var useCaseData = parameter.ToUseCaseData();
             var result = handler.Handle(useCaseData);
@@ -16,18 +16,7 @@ namespace Interplayers.WebAPI.Endpoints.ValidatePassword
             if (result.IsValid())
                 return Results.StatusCode(200);
 
-            var locale = languageDecider.GetLanguage().GetPasswordValidationMessageLocale();
-            
-            var response = new []
-            {
-                new 
-                {
-                    attribute = nameof(parameter.Password), 
-                    value = result.ErrorMessages.Select(x => x.GetDescription(locale))
-                }
-            }
-            .ToDictionary(x => x.attribute, x => x.value);
-            
+            var response = ValidatePasswordResponseBody.Create401(languageDecider, result);
             return Results.Json(data: response, statusCode: 401);
         }
     }
