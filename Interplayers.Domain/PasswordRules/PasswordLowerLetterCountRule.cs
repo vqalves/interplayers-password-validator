@@ -1,4 +1,4 @@
-﻿using Interplayers.Domain.ValidationMessages;
+﻿using Interplayers.Domain.Messages.Validation;
 using Interplayers.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace Interplayers.Domain.PasswordRules
 
                 if (lowerLetterCount < MinimumAmountOfLowerLetters)
                 {
-                    invalidMessage = ValidationMessage.PasswordLowerLetterCountInvalid;
+                    invalidMessage = ValidationMessages.PasswordLowerLetterCountInvalid;
                     return false;
                 }
             }

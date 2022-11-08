@@ -1,4 +1,4 @@
-﻿using Interplayers.Domain.ValidationMessages;
+﻿using Interplayers.Domain.Messages.Validation;
 using Interplayers.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ namespace Interplayers.Domain.PasswordRules
 
                 if (specialCharacterCount < MinimumAmountOfSpecialCharacters)
                 {
-                    invalidMessage = ValidationMessage.PasswordSpecialCharacterCountInvalid;
+                    invalidMessage = ValidationMessages.PasswordSpecialCharacterCountInvalid;
                     return false;
                 }
             }

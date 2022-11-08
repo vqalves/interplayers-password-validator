@@ -1,4 +1,4 @@
-﻿using Interplayers.Domain.ValidationMessages;
+﻿using Interplayers.Domain.Messages.Validation;
 using Interplayers.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Interplayers.Domain.PasswordRules
         {
             if(password.AmountOfCharacters() < MinimumCharacterCount)
             {
-                invalidMessage = ValidationMessage.PasswordCharacterCountInvalid;
+                invalidMessage = ValidationMessages.PasswordCharacterCountInvalid;
                 return false;
             }
 

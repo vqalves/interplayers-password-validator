@@ -1,5 +1,5 @@
-﻿using Interplayers.Domain.PasswordRules;
-using Interplayers.Domain.ValidationMessages;
+﻿using Interplayers.Domain.Messages.Validation;
+using Interplayers.Domain.PasswordRules;
 using Interplayers.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;

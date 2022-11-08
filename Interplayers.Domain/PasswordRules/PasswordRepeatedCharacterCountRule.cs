@@ -1,4 +1,4 @@
-﻿using Interplayers.Domain.ValidationMessages;
+﻿using Interplayers.Domain.Messages.Validation;
 using Interplayers.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace Interplayers.Domain.PasswordRules
 
             if (biggestRepetition > MaximumAmountOfRepetition)
             {
-                invalidMessage = ValidationMessage.PasswordRepeatedCharacterCountInvalid;
+                invalidMessage = ValidationMessages.PasswordRepeatedCharacterCountInvalid;
                 return false;
             }
 

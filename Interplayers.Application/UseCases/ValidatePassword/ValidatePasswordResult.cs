@@ -1,4 +1,4 @@
-﻿using Interplayers.Domain.ValidationMessages;
+﻿using Interplayers.Domain.Messages.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
