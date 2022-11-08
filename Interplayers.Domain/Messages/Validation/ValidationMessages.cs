@@ -21,7 +21,7 @@ namespace Interplayers.Domain.Messages.Validation
             var message = new ValidationMessage(code);
             
             if(AllMessages.ContainsKey(code))
-                throw new Exception($"Message with code {code} was already added in the dictionary");
+                throw new ArgumentException($"A ValidationMessage with code {code} was already added in the dictionary");
 
             AllMessages.Add(code, message);
             return message;

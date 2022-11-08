@@ -2,10 +2,18 @@ using Interplayers.Application.UseCases.ValidatePassword;
 using Interplayers.Domain.PasswordRules;
 using Interplayers.Infrastructure.Implementations.PasswordRules;
 using Interplayers.WebAPI.Endpoints.ValidatePassword;
-
+using Interplayers.WebAPI.Locale;
+using Interplayers.WebAPI.Locale.Languages;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+
+// ASP.NET classes
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); 
+
+// Locale
+builder.Services.AddSingleton<LanguageProvider>(c => LanguageProvider.Create(c));
+builder.Services.AddScoped<ILanguageDecider, HttpLanguageDecider>();
 
 // Implementations
 builder.Services.AddSingleton<PasswordRulesOptions>(c => configuration.GetSection(PasswordRulesOptions.SectionName).Get<PasswordRulesOptions>());

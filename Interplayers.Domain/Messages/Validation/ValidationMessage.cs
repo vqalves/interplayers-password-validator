@@ -11,5 +11,7 @@ namespace Interplayers.Domain.Messages.Validation
         {
             this.Code = code;
         }
+
+        public string GetDescription(IValidationMessageLocale locale) => locale.GetDescription(this);
     }
 }
