@@ -91,7 +91,7 @@ Camada | Descrição
 -- | --
 WebAPI | Gerencia endpoints, injeções de dependência, interpreta configurações e internalização, responsável pelo recebimento de payload HTTP e tradução do payload para uso dos serviços da `Application`
 Application | Libera serviços que coordenam o fluxo de cada um dos casos de uso e executa as regras de negócio especificadas em `Domain`
-Infrastructure | Implementa lógicas e estruturas que estão correlacionados com entidades externas, por exemplo arquivos de configuração
+Infrastructure | Implementa lógicas e estruturas que estão correlacionados com entidades externas (por exemplo arquivos de configuração), ou classes concretas fora do domínio que podem ser úteis em projetos com comunicação externa (webapi, console, worker).
 Domain | Especifica entidades, objetos e regras de negócio relativas ao domínio
 
 ## Árvore de Dependências
