@@ -29,14 +29,23 @@ Payload:
 
 ### Validate Password Response
 #### StatusCode 200
+```
+Body:
+{
+  "isValid": true
+}
+```
+
 #### StatusCode 400
 ```
 Body:
 {
+  "isValid": false,
+  "validations": {
     "Password": ["validation messages"]
+  }
 }
 ```
-
 
 ## Caso de uso
 
